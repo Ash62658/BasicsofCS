@@ -1,11 +1,12 @@
 #include <iostream>
 #include "logicGates.cpp"
 
+LogicGates Gate1;
+
 class SRLatch{
   private:
     bool Q;
     bool notQ;
-    LogicGates Gate1;
   public:
     SRLatch(){
       Q = false;
@@ -24,4 +25,23 @@ class SRLatch{
     bool getnotQ(){
       return notQ;
     }
+};
+
+class DLatch{
+  private:
+    bool Q;
+  public:
+    SRLatch Latch;
+    DLatch(){
+      Q = false;
+    }
+    void updateLatch(bool D, bool S){
+      Latch.updateLatch(Gate1.andGate(D, S), Gate1.andGate(Gate1.notGate(D), S));
+      Q = Latch.getQ();
+    }
+
+    bool getQ(){
+      return Q;
+    }
+
 };
